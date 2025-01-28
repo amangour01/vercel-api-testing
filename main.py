@@ -20,7 +20,7 @@ with open('q-vercel-python.json', 'r') as f:
     student_marks = json.load(f)
 
 @app.get("/api")
-async def get_marks(name: List[str] = Query(None)):
+async def get_marks(name: List[str] = Query(...)):
     if not name:
         raise HTTPException(status_code=400, detail="Query parameter 'name' is required")
     
