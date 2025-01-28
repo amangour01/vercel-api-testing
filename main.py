@@ -29,8 +29,6 @@ async def get_marks(name: List[str] = Query(None)):
         student = next((s for s in student_marks if s["name"] == student_name), None)
         if student:
             marks.append(student["marks"])
-        else:
-            marks.append(None)
     return {"marks": marks}
 
 @app.get("/")
