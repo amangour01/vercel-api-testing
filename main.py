@@ -19,11 +19,21 @@ app.add_middleware(
 with open('q-vercel-python.json', 'r') as f:
     student_marks = json.load(f)
 
-@app.get("/api")
-async def get_marks(name: List[str] = Query(...)):
-    if not name:
-        raise HTTPException(status_code=400, detail="Query parameter 'name' is required")
+# @app.get("/api")
+# async def get_marks(name: List[str] = Query(...)):
+    # if not name:
+    #     raise HTTPException(status_code=400, detail="Query parameter 'name' is required")
     
+    # marks = []
+    # for student_name in name:
+    #     student = next((s for s in student_marks if s["name"] == student_name), None)
+    #     if student:
+    #         marks.append(student["marks"])
+    # return {"marks": marks}
+
+@app.get("/api")
+def get_marks():
+    names = request.args.getlist('name')    
     marks = []
     for student_name in name:
         student = next((s for s in student_marks if s["name"] == student_name), None)
