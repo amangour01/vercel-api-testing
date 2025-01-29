@@ -35,11 +35,19 @@ with open('q-vercel-python.json', 'r') as f:
 def get_marks():
     names = request.args.getlist('name')    
     marks = []
-    for student_name in name:
-        student = next((s for s in student_marks if s["name"] == student_name), None)
-        if student:
-            marks.append(student["marks"])
-    return {"marks": marks}
+    for name in names:
+        # Iterate over students list and check if the student's name matches
+        student_found = False
+        for student in students:
+            if student.get('name') == name:
+                marks.append(student.get('marks', "Marks not found"))
+                student_found = True
+                break
+        
+        if not student_found:
+            marks.append("Student not found")
+    
+    return jsonify({"marks": marks})
 
 @app.get("/")
 def read_root():
